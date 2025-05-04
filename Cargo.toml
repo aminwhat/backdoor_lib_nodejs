@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/backdoor_lib_nodejs"]
+resolver = "2"

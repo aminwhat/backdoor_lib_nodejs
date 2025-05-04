@@ -1,0 +1,18 @@
+[package]
+name = "backdoor_lib_nodejs"
+version = "0.1.0"
+license = "ISC"
+edition = "2021"
+exclude = ["index.node"]
+
+[lib]
+crate-type = ["cdylib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# neon = { version = "1", features = ["promise-api"] }
+neon = "1"
+backdoor_lib = { git = "https://github.com/aminwhat/backdoor_lib" }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+futures = "0.3"
