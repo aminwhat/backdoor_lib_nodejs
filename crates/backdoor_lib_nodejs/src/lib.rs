@@ -7,12 +7,18 @@ fn hello(mut cx: FunctionContext) -> JsResult<JsString> {
 
 fn make_backdoor_request_func(mut cx: FunctionContext) -> JsResult<JsBoolean> {
     let project_name = cx.argument::<JsString>(0)?.value(&mut cx);
+    let project_name_lowercase = project_name.to_lowercase();
 
-    let the_project_name = match project_name.as_str() {
+    let the_project_name = match project_name_lowercase.as_str() {
         "dawood" => ProjectName::Dawood,
-        "quranicity" => ProjectName::Quranicity,
+        "quranicity" | "quraniccity" | "qurancity" | "quranici" | "quraniccity" => {
+            ProjectName::Quranicity
+        }
         "ai100" => ProjectName::Ai100,
-        _ => return cx.throw_error("Invalid project name"),
+        _ => {
+            eprintln!("Invalid project name: {}", project_name);
+            return cx.throw_error(format!("Invalid project name: {}", project_name));
+        }
     };
 
     let rt = tokio::runtime::Runtime::new().unwrap();

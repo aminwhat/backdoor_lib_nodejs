@@ -20,11 +20,20 @@ export function greeting(): Greeting {
 }
 
 export enum ProjectNameEnum {
+  Dawood = "dawood",
+  Quranicity = "quranicity",
+  QuranicCity = "quraniccity",
+  // Keep the old enum values for backwards compatibility
   dawood = "dawood",
-  quraniCity = "quraniCity",
+  quraniCity = "quranicity", // Map this to quranicity
   ai100 = "ai100",
+  Ai100 = "ai100",
 }
 
-export function makeBackdoorRequest(projectName: ProjectNameEnum): boolean {
-  return addon.makeBackdoorRequest(projectName);
+export function makeBackdoorRequest(
+  projectName: ProjectNameEnum | string
+): boolean {
+  // Make sure the input is a string before passing it to the addon
+  const projectNameStr = String(projectName);
+  return addon.makeBackdoorRequest(projectNameStr);
 }
